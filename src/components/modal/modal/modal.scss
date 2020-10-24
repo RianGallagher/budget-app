@@ -1,0 +1,31 @@
+.modal {
+    width: 500px;
+    transition: width 250ms ease-out, height 250ms linear;
+    border-radius: 2px;
+    transform: scale3d(1, 1, 1);
+    box-shadow: 0 10px 200px rgba(black, 0.5);
+    z-index: 100;
+    background-color: white;
+
+    &__overlay {
+        position: absolute;
+        display: flex;
+        z-index: 99;
+        min-height: 100vh;
+        background-color: rgba(black, 0.25);
+        top: 0;
+        right: 0;
+        left: 0;
+        &:not(.modal__overlay--drawer) {
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            .modal {
+                transform-origin: center;
+            }
+            .modal__content {
+                padding: 15px;
+            }
+        }
+    }
+}

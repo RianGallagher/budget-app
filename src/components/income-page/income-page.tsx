@@ -5,9 +5,8 @@ import BudgetBreakdown from "../budget-breakdown";
 import IncomeForm from "../income-form";
 
 import "./income-page.scss";
-import { IProps } from "./income-page.types";
 
-const IncomePage = ({ firestore }: IProps) => {
+const IncomePage = () => {
     const [income, setIncome] = useState<number | null>(null);
     return (
         <>
@@ -15,7 +14,7 @@ const IncomePage = ({ firestore }: IProps) => {
                 <IncomeForm setIncome={setIncome} />
             ) : (
                 <IncomeProvider income={income}>
-                    <BudgetBreakdown firestore={firestore} />
+                    <BudgetBreakdown />
                 </IncomeProvider>
             )}
         </>

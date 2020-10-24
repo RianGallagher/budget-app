@@ -1,9 +1,10 @@
 import React from "react";
 
-import { IProps } from "./sign-out.types";
 import "./sign-out.scss";
+import FirebaseService from "../../utilities/firebase-service";
 
-const SignOut = ({ auth }: IProps) => {
+const SignOut = () => {
+    const { auth } = FirebaseService;
     if (auth.currentUser) {
         return (
             <button className="sign-out" onClick={() => auth.signOut()}>

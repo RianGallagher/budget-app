@@ -1,10 +1,11 @@
 import React from "react";
 import firebase from "firebase";
 
-import { IProps } from "./sign-in.types";
 import "./sign-in.scss";
+import FirebaseService from "../../utilities/firebase-service";
 
-const SignIn = ({ auth }: IProps) => {
+const SignIn = () => {
+    const { auth } = FirebaseService;
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider);
