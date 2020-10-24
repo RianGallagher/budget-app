@@ -1,3 +1,6 @@
-export interface IProps {
-    readonly firestore: firebase.firestore.Firestore;
+export interface IProps {}
+
+export interface IComponent {
+    readonly title: string;
+    readonly percentage: number;
 }

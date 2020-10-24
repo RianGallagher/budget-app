@@ -2,18 +2,16 @@ import React, { useContext } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import IncomeContext from "../../state/income/income-context/income-context";
+import FirebaseService from "../../utilities/firebase-service";
 import BudgetComponent from "../budget-component";
 import MonetaryNumber from "../monetary-number";
 
+import AddComponent from "./add-component";
+import { IComponent } from "./budget-breakdown.types";
 import "./budget-breakdown.scss";
-import { IProps } from "./budget-breakdown.types";
 
-interface IComponent {
-    readonly title: string;
-    readonly percentage: number;
-}
-
-const BudgetBreakdown = ({ firestore }: IProps) => {
+const BudgetBreakdown = () => {
+    const { firestore } = FirebaseService;
     const { income } = useContext(IncomeContext);
     const componentsRef = firestore.collection("components");
 
@@ -38,6 +36,7 @@ const BudgetBreakdown = ({ firestore }: IProps) => {
                             />
                         ))}
                     </div>
+                    <AddComponent />
                 </>
             )}
         </div>

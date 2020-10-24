@@ -1,0 +1,25 @@
+.button {
+    background-color: transparent;
+    cursor: pointer;
+    border: 1px solid rgba(blue, 0.6);
+    border-radius: 4px;
+    font-weight: bold;
+    line-height: 40px;
+    padding: 0 10px;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    text-align: center;
+
+    &:hover {
+        background-color: lightgray;
+    }
+    &:active {
+        background-color: grey;
+    }
+
+    &--circular {
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+    }
+}
