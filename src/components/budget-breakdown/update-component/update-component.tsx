@@ -1,5 +1,5 @@
 import React from "react";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../button";
 import { ModalContainer, Modal } from "../../modal";
@@ -7,16 +7,16 @@ import FirebaseService from "../../../utilities/firebase-service";
 import ComponentForm from "../component-form";
 import { IFormValues } from "../component-form/component-form.types";
 
-import "./add-component.scss";
+import { IProps } from "./update-component.types";
 
-const AddComponent = () => {
+const UpdateComponent = ({ componentId, ...component }: IProps) => {
     const { firestore, auth } = FirebaseService;
     const { uid } = auth.currentUser!;
-    const componentsRef = firestore.collection(`users/${uid}/components`);
+    const componentRef = firestore.collection(`users/${uid}/components`).doc(componentId);
 
     const onSubmit = (hideModal: VoidFunction) => async (formValues: IFormValues) => {
         try {
-            await componentsRef.add(formValues);
+            await componentRef.update(formValues);
         } catch (error) {
             console.error("well that didnt work", error);
         }
@@ -29,9 +29,13 @@ const AddComponent = () => {
                 {({ showModal, hideModal }) => (
                     <>
                         <Modal>
-                            <ComponentForm buttonLabel="Add Component" onSubmit={onSubmit(hideModal)} />
+                            <ComponentForm
+                                buttonLabel="Update Component"
+                                initialValues={component}
+                                onSubmit={onSubmit(hideModal)}
+                            />
                         </Modal>
-                        <Button icon={faPlus} onClick={showModal} isIconOnly />
+                        <Button icon={faEdit} onClick={showModal} isIconOnly />
                     </>
                 )}
             </ModalContainer>
@@ -39,4 +43,4 @@ const AddComponent = () => {
     );
 };
 
-export default AddComponent;
+export default UpdateComponent;
