@@ -8,32 +8,35 @@ import MonetaryNumber from "../monetary-number";
 
 import AddComponent from "./add-component";
 import { IComponent } from "./budget-breakdown.types";
+import DeleteComponentButton from "./delete-component-button";
 import "./budget-breakdown.scss";
 
 const BudgetBreakdown = () => {
-    const { firestore } = FirebaseService;
+    const { firestore, auth } = FirebaseService;
     const { income } = useContext(IncomeContext);
-    const componentsRef = firestore.collection("components");
+    const { uid } = auth.currentUser!;
+    const componentsRef = firestore.collection(`users/${uid}/components`);
 
-    const [components, loading, error] = useCollectionData<IComponent>(componentsRef);
+    const [components, loading, error] = useCollectionData<IComponent & { componentId: string }>(componentsRef, {
+        idField: "componentId",
+    });
 
     return (
         <div>
+            <div className="income">
+                <h1>Income</h1>
+                {income === null ? <div>Nothing</div> : <MonetaryNumber value={income} />}
+            </div>
             {error && <strong>Error: {error}</strong>}
             {loading && <span>List: Loading...</span>}
             {!loading && components && (
                 <>
-                    <div className="income">
-                        <h1>Income</h1>
-                        {income === null ? <div>Nothing</div> : <MonetaryNumber value={income} />}
-                    </div>
                     <div className="budget-components">
-                        {components.map((component) => (
-                            <BudgetComponent
-                                title={component.title}
-                                percentage={component.percentage}
-                                key={component.title}
-                            />
+                        {components.map(({ componentId, title, percentage }) => (
+                            <React.Fragment key={componentId}>
+                                <BudgetComponent title={title} percentage={percentage} />
+                                <DeleteComponentButton componentId={componentId} />
+                            </React.Fragment>
                         ))}
                     </div>
                     <AddComponent />

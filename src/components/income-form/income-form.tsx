@@ -1,12 +1,24 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 
-import { IFormValues, IProps } from "./income-form.types";
+import FirebaseService from "../../utilities/firebase-service";
+
+import { IFormValues } from "./income-form.types";
 import "./income-form.scss";
 
-const IncomeForm = ({ setIncome }: IProps) => {
+const IncomeForm = () => {
+    const { firestore, auth } = FirebaseService;
+    const { uid } = auth.currentUser!;
+    const userRef = firestore.doc(`users/${uid}`);
+
+    /**
+     * Update the users income in the database.
+     * @param formValues.income The income that the user has submitted.
+     */
     const onSubmit = ({ income }: IFormValues) => {
-        setIncome(parseInt(income));
+        userRef.update({
+            income: parseInt(income),
+        });
     };
 
     return (
