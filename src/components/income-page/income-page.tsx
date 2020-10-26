@@ -1,19 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
 import IncomeProvider from "../../state/income/income-provider";
+import FirebaseService from "../../utilities/firebase-service";
 import BudgetBreakdown from "../budget-breakdown";
 import IncomeForm from "../income-form";
 
+import { IUser } from "./income-page.types";
 import "./income-page.scss";
 
 const IncomePage = () => {
-    const [income, setIncome] = useState<number | null>(null);
+    const { firestore, auth } = FirebaseService;
+    const { uid } = auth.currentUser!;
+    const userRef = firestore.doc(`users/${uid}`);
+
+    const [user] = useDocumentData<IUser>(userRef);
+
     return (
         <>
-            {income === null ? (
-                <IncomeForm setIncome={setIncome} />
+            {typeof user?.income === "undefined" ? (
+                <IncomeForm />
             ) : (
-                <IncomeProvider income={income}>
+                <IncomeProvider income={user.income}>
                     <BudgetBreakdown />
                 </IncomeProvider>
             )}

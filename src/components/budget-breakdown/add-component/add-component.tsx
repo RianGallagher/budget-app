@@ -11,15 +11,16 @@ import { IFormValues } from "./add-component.types";
 import "./add-component.scss";
 
 const AddComponent = () => {
-    const { auth, firestore } = FirebaseService;
-    const componentsRef = firestore.collection("components");
+    const { firestore, auth } = FirebaseService;
+    const { uid } = auth.currentUser!;
+    const componentsRef = firestore.collection(`users/${uid}/components`);
 
     const onSubmit = (hideModal: VoidFunction) => async (formValues: IFormValues) => {
-        const { uid } = auth.currentUser!;
-        await componentsRef.add({
-            uid,
-            ...formValues,
-        });
+        try {
+            await componentsRef.add(formValues);
+        } catch (error) {
+            console.error("well that didnt work", error);
+        }
         hideModal();
     };
 
@@ -34,7 +35,7 @@ const AddComponent = () => {
                                 onSubmit={onSubmit(hideModal)}
                                 validationSchema={Yup.object().shape({
                                     title: Yup.string().required(),
-                                    percentage: Yup.string().required(),
+                                    percentage: Yup.number().required().min(0, "Number must be greater than 0"),
                                 })}
                             >
                                 <Form>
