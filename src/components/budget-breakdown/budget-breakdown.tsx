@@ -9,6 +9,7 @@ import MonetaryNumber from "../monetary-number";
 import AddComponent from "./add-component";
 import { IComponent } from "./budget-breakdown.types";
 import DeleteComponentButton from "./delete-component-button";
+import UpdateComponent from "./update-component";
 import "./budget-breakdown.scss";
 
 const BudgetBreakdown = () => {
@@ -32,10 +33,11 @@ const BudgetBreakdown = () => {
             {!loading && components && (
                 <>
                     <div className="budget-components">
-                        {components.map(({ componentId, title, percentage }) => (
-                            <React.Fragment key={componentId}>
-                                <BudgetComponent title={title} percentage={percentage} />
-                                <DeleteComponentButton componentId={componentId} />
+                        {components.map((component) => (
+                            <React.Fragment key={component.componentId}>
+                                <BudgetComponent {...component} />
+                                <DeleteComponentButton componentId={component.componentId} />
+                                <UpdateComponent {...component} />
                             </React.Fragment>
                         ))}
                     </div>
