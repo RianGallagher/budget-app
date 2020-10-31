@@ -1,15 +1,16 @@
 import React from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import IncomeProvider from "state/income/income-provider";
+import FirebaseService from "utilities/firebase-service";
+import BudgetBreakdown from "components/budget-breakdown";
+import IncomeForm from "components/income-form";
 
-import IncomeProvider from "../../state/income/income-provider";
-import FirebaseService from "../../utilities/firebase-service";
-import BudgetBreakdown from "../budget-breakdown";
-import IncomeForm from "../income-form";
+import { IUser } from "./budget-page.types";
 
-import { IUser } from "./income-page.types";
-import "./income-page.scss";
-
-const IncomePage = () => {
+/**
+ * A page to show the user their budget.
+ */
+const BudgetPage = () => {
     const { firestore, auth } = FirebaseService;
     const { uid } = auth.currentUser!;
     const userRef = firestore.doc(`users/${uid}`);
@@ -29,4 +30,4 @@ const IncomePage = () => {
     );
 };
 
-export default IncomePage;
+export default BudgetPage;

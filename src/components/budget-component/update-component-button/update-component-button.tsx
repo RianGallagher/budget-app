@@ -1,15 +1,19 @@
 import React from "react";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import FirebaseService from "utilities/firebase-service";
+import Button from "components/button";
+import { ModalContainer, Modal } from "components/modal";
+import ComponentForm from "components/budget-breakdown/component-form";
+import { IFormValues } from "components/budget-breakdown/component-form/component-form.types";
 
-import Button from "../../button";
-import { ModalContainer, Modal } from "../../modal";
-import FirebaseService from "../../../utilities/firebase-service";
-import ComponentForm from "../component-form";
-import { IFormValues } from "../component-form/component-form.types";
+import { IProps } from "./update-component-button.types";
 
-import { IProps } from "./update-component.types";
-
-const UpdateComponent = ({ componentId, ...component }: IProps) => {
+/**
+ * A button that will open a modal for editing the component.
+ * @param props.componentId The ID of the component being updated.
+ * @param props.component   The component being edited.
+ */
+const UpdateComponentButton = ({ componentId, ...component }: IProps) => {
     const { firestore, auth } = FirebaseService;
     const { uid } = auth.currentUser!;
     const componentRef = firestore.collection(`users/${uid}/components`).doc(componentId);
@@ -43,4 +47,4 @@ const UpdateComponent = ({ componentId, ...component }: IProps) => {
     );
 };
 
-export default UpdateComponent;
+export default UpdateComponentButton;

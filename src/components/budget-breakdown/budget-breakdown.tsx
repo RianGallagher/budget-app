@@ -1,24 +1,25 @@
 import React, { useContext } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-
-import IncomeContext from "../../state/income/income-context/income-context";
-import FirebaseService from "../../utilities/firebase-service";
-import BudgetComponent from "../budget-component";
-import MonetaryNumber from "../monetary-number";
+import IncomeContext from "state/income/income-context/income-context";
+import FirebaseService from "utilities/firebase-service";
+import BudgetComponent from "components/budget-component";
+import MonetaryNumber from "components/monetary-number";
+import SpinnerUntil from "components/spinner-until";
 
 import AddComponent from "./add-component";
-import { IComponent } from "./budget-breakdown.types";
-import DeleteComponentButton from "./delete-component-button";
-import UpdateComponent from "./update-component";
+import { IComponentWithId } from "./budget-breakdown.types";
 import "./budget-breakdown.scss";
 
+/**
+ * A breakdown of the user's budget.
+ */
 const BudgetBreakdown = () => {
     const { firestore, auth } = FirebaseService;
     const { income } = useContext(IncomeContext);
     const { uid } = auth.currentUser!;
     const componentsRef = firestore.collection(`users/${uid}/components`);
 
-    const [components, loading, error] = useCollectionData<IComponent & { componentId: string }>(componentsRef, {
+    const [components, loading] = useCollectionData<IComponentWithId>(componentsRef, {
         idField: "componentId",
     });
 
@@ -26,24 +27,18 @@ const BudgetBreakdown = () => {
         <div>
             <div className="income">
                 <h1>Income</h1>
-                {income === null ? <div>Nothing</div> : <MonetaryNumber value={income} />}
+                <MonetaryNumber value={income} />
             </div>
-            {error && <strong>Error: {error}</strong>}
-            {loading && <span>List: Loading...</span>}
-            {!loading && components && (
-                <>
+            <SpinnerUntil<IComponentWithId[]> data={components} isReady={!loading && typeof components !== "undefined"}>
+                {(components) => (
                     <div className="budget-components">
                         {components.map((component) => (
-                            <React.Fragment key={component.componentId}>
-                                <BudgetComponent {...component} />
-                                <DeleteComponentButton componentId={component.componentId} />
-                                <UpdateComponent {...component} />
-                            </React.Fragment>
+                            <BudgetComponent {...component} key={component.componentId} />
                         ))}
+                        <AddComponent />
                     </div>
-                    <AddComponent />
-                </>
-            )}
+                )}
+            </SpinnerUntil>
         </div>
     );
 };
