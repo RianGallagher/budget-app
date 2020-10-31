@@ -1,18 +1,27 @@
 import React from "react";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import FirebaseService from "utilities/firebase-service";
+import Button from "components/button";
 
 import "./sign-out.scss";
-import FirebaseService from "../../utilities/firebase-service";
 
+/**
+ * A button to sign out the user.
+ */
 const SignOut = () => {
     const { auth } = FirebaseService;
+    const signOut = () => {
+        auth.signOut();
+    };
+
     if (auth.currentUser) {
         return (
-            <button className="sign-out" onClick={() => auth.signOut()}>
+            <Button icon={faSignOutAlt} onClick={signOut}>
                 Sign Out
-            </button>
+            </Button>
         );
     } else {
-        return <></>;
+        return null;
     }
 };
 

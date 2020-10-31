@@ -13,16 +13,11 @@ export const config = {
 
 const FirebaseService = (() => {
     firebase.initializeApp(config);
-    let user: firebase.User | null = null;
 
     const auth = firebase.auth();
     const firestore = firebase.firestore();
 
-    const setUser = (signedInUser: firebase.User) => {
-        user = signedInUser;
-    };
-
-    return { auth, firestore, setUser, user };
+    return { auth, firestore };
 })();
 
 export default FirebaseService;

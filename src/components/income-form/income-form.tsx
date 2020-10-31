@@ -1,11 +1,13 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
-
-import FirebaseService from "../../utilities/firebase-service";
+import FirebaseService from "utilities/firebase-service";
 
 import { IFormValues } from "./income-form.types";
 import "./income-form.scss";
 
+/**
+ * A form that allows the user to input their income.
+ */
 const IncomeForm = () => {
     const { firestore, auth } = FirebaseService;
     const { uid } = auth.currentUser!;
