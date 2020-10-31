@@ -8,9 +8,10 @@ import { IProps } from "./budget-component.types";
 import "./budget-component.scss";
 
 /**
- *
- * @param props.percentage The percentage of income that this component is allocated.
- * @param props.title      The title of the component.
+ * A component of the user's budget.
+ * @param props.componentId The ID of the component being displayed.
+ * @param props.percentage  The percentage of income that this component is allocated.
+ * @param props.title       The title of the component.
  */
 const BudgetComponent = ({ componentId, percentage, title }: IProps) => {
     const { income } = useContext(IncomeContext);
