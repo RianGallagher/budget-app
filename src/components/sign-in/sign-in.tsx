@@ -17,12 +17,12 @@ const SignIn = () => {
     };
 
     return (
-        <>
+        <div className="sign-in">
+            <p>Please sign in to make use of the app</p>
             <Button icon={faSignInAlt} onClick={signInWithGoogle}>
                 Sign in with Google
             </Button>
-            <p>Please sign in to make use of the app</p>
-        </>
+        </div>
     );
 };
 

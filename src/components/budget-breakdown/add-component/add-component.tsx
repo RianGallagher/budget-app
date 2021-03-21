@@ -24,14 +24,16 @@ const AddComponent = () => {
     };
 
     return (
-        <div>
+        <div className="add-component">
             <ModalContainer>
                 {({ showModal, hideModal }) => (
                     <>
                         <Modal>
                             <ComponentForm buttonLabel="Add Component" onSubmit={onSubmit(hideModal)} />
                         </Modal>
-                        <Button icon={faPlus} onClick={showModal} isIconOnly />
+                        <Button icon={faPlus} onClick={showModal}>
+                            Add Component
+                        </Button>
                     </>
                 )}
             </ModalContainer>

@@ -1,7 +1,6 @@
 import React from "react";
 
 import { IProps } from "./spinner-until.types";
-import "./spinner-until.scss";
 
 /**
  * Shows a spinner until the data required to render is ready.

@@ -23,7 +23,7 @@ const DeleteComponentButton = ({ componentId }: IProps) => {
         }
     };
 
-    return <Button onClick={onClick} icon={faTrash} />;
+    return <Button onClick={onClick} icon={faTrash} isIconOnly />;
 };
 
 export default DeleteComponentButton;

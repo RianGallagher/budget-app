@@ -1,0 +1,21 @@
+.budget-component {
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    min-width: 300px;
+
+    &__title {
+        font-weight: bold;
+    }
+
+    .monetary-number {
+        margin: 10px 0;
+    }
+
+    &__buttons {
+        display: flex;
+        .button {
+            margin: 0 3px;
+        }
+    }
+}

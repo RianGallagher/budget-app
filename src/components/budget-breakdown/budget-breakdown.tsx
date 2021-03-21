@@ -24,17 +24,19 @@ const BudgetBreakdown = () => {
     });
 
     return (
-        <div>
+        <div className="budget-breakdown">
             <div className="income">
-                <h1>Income</h1>
+                <h2>Income</h2>
                 <MonetaryNumber value={income} />
             </div>
             <SpinnerUntil<IComponentWithId[]> data={components} isReady={!loading && typeof components !== "undefined"}>
                 {(components) => (
-                    <div className="budget-components">
-                        {components.map((component) => (
-                            <BudgetComponent {...component} key={component.componentId} />
-                        ))}
+                    <div className="budget-components__container">
+                        <div className="budget-components">
+                            {components.map((component) => (
+                                <BudgetComponent {...component} key={component.componentId} />
+                            ))}
+                        </div>
                         <AddComponent />
                     </div>
                 )}

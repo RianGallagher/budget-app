@@ -16,11 +16,13 @@ import "./budget-component.scss";
 const BudgetComponent = ({ componentId, percentage, title }: IProps) => {
     const { income } = useContext(IncomeContext);
     return (
-        <div className="budget-components__component">
-            <h2>{`${title} - ${percentage}%`}</h2>
+        <div className="budget-component">
+            <div className="budget-component__title">{`${title} - ${percentage}%`}</div>
             <MonetaryNumber value={income * (percentage / 100)} />
-            <DeleteComponentButton componentId={componentId} />
-            <UpdateComponentButton componentId={componentId} percentage={percentage} title={title} />
+            <div className="budget-component__buttons">
+                <DeleteComponentButton componentId={componentId} />
+                <UpdateComponentButton componentId={componentId} percentage={percentage} title={title} />
+            </div>
         </div>
     );
 };

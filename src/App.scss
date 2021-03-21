@@ -1,0 +1,18 @@
+.app {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: auto 1fr;
+
+    > * {
+        padding: 0 15px;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        box-shadow: 1px 1px 1px 0px #ccc;
+        &__title {
+            flex: 1;
+        }
+    }
+}
