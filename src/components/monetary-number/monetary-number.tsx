@@ -9,7 +9,7 @@ const MonetaryNumber = ({ currency = Currency.Euro, value }: IProps) => {
         return value.toFixed(2);
     }, [value]);
 
-    return <div>{`${currency} ${formattedValue}`}</div>;
+    return <div className="monetary-number">{`${currency} ${formattedValue}`}</div>;
 };
 
 export default MonetaryNumber;

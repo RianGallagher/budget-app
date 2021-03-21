@@ -1,6 +1,9 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import FirebaseService from "utilities/firebase-service";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
+import Button from "components/button";
+import { Variant } from "components/button/button.types";
 
 import { IFormValues } from "./income-form.types";
 import "./income-form.scss";
@@ -29,8 +32,10 @@ const IncomeForm = () => {
                 <div className="field">
                     <label htmlFor="income">Income</label>
                     <Field name="income" type="number" />
-                    <button type="submit">Submit</button>
                 </div>
+                <Button icon={faSave} type="submit" variant={Variant.positive}>
+                    Submit
+                </Button>
             </Form>
         </Formik>
     );

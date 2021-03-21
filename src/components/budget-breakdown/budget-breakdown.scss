@@ -1,4 +1,21 @@
-.budget-components {
-    display: flex;
-    justify-content: space-between;
+.budget-breakdown {
+    .income {
+        display: flex;
+        align-items: center;
+        .monetary-number::before {
+            content: "\00a0-\00a0";
+        }
+    }
+    .budget-components {
+        &__container {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            row-gap: 20px;
+            .add-component {
+                justify-self: center;
+            }
+        }
+        display: flex;
+        justify-content: space-between;
+    }
 }
