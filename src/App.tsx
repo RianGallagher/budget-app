@@ -1,3 +1,5 @@
+import { Views } from "constants/views";
+
 import React from "react";
 import SignIn from "components/sign-in";
 import BudgetPage from "components/budget-page";
@@ -16,13 +18,13 @@ const App = () => (
         </header>
         <Router>
             <Switch>
-                <Route path="/login">
+                <Route path={Views.Login}>
                     <SignIn />
                 </Route>
-                <AuthenticatedRoute path="/budget">
+                <AuthenticatedRoute path={Views.Budget}>
                     <BudgetPage />
                 </AuthenticatedRoute>
-                <Redirect to={{ pathname: "/budget" }} />
+                <Redirect to={{ pathname: Views.Budget }} />
             </Switch>
         </Router>
     </div>

@@ -1,3 +1,5 @@
+import { Views } from "constants/views";
+
 import React from "react";
 import BudgetBreakdown from "components/budget-breakdown";
 import IncomeForm from "components/income-form";
@@ -12,24 +14,26 @@ import useUser from "hooks/use-user";
 const BudgetPage = () => {
     const { url } = useRouteMatch();
     const user = useUser();
+    const breakdownView = `${url}${Views.Breakdown}`;
+    const incomeView = `${url}${Views.Income}`;
 
     return (
         <Switch>
             {user === null ? (
-                <Redirect to={{ pathname: "/budget" }} />
+                <Redirect to={{ pathname: Views.Budget }} />
             ) : (
                 <>
                     <ProtectedRoute
-                        path={`${url}/breakdown`}
-                        redirectPath={`${url}/income`}
+                        path={breakdownView}
+                        redirectPath={incomeView}
                         shouldRedirect={typeof user.income === "undefined"}
                     >
                         <BudgetBreakdown income={user.income} />
                     </ProtectedRoute>
-                    <Route path={`${url}/income`}>
+                    <Route path={incomeView}>
                         <IncomeForm />
                     </Route>
-                    <Redirect to={{ pathname: `${url}/breakdown` }} />
+                    <Redirect to={{ pathname: breakdownView }} />
                 </>
             )}
         </Switch>
