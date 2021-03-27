@@ -1,4 +1,6 @@
-export interface IProps {}
+export interface IProps {
+    readonly income: number;
+}
 
 export interface IComponent {
     readonly title: string;

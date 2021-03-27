@@ -1,32 +1,38 @@
 import React from "react";
-import { useDocumentData } from "react-firebase-hooks/firestore";
-import IncomeProvider from "state/income/income-provider";
-import FirebaseService from "utilities/firebase-service";
 import BudgetBreakdown from "components/budget-breakdown";
 import IncomeForm from "components/income-form";
-
-import { IUser } from "./budget-page.types";
+import { Switch, useRouteMatch } from "react-router";
+import { Redirect, Route } from "react-router-dom";
+import ProtectedRoute from "components/protected-route";
+import useUser from "hooks/use-user";
 
 /**
  * A page to show the user their budget.
  */
 const BudgetPage = () => {
-    const { firestore, auth } = FirebaseService;
-    const { uid } = auth.currentUser!;
-    const userRef = firestore.doc(`users/${uid}`);
-
-    const [user] = useDocumentData<IUser>(userRef);
+    const { url } = useRouteMatch();
+    const user = useUser();
 
     return (
-        <>
-            {typeof user?.income === "undefined" ? (
-                <IncomeForm />
+        <Switch>
+            {user === null ? (
+                <Redirect to={{ pathname: "/budget" }} />
             ) : (
-                <IncomeProvider income={user.income}>
-                    <BudgetBreakdown />
-                </IncomeProvider>
+                <>
+                    <ProtectedRoute
+                        path={`${url}/breakdown`}
+                        redirectPath={`${url}/income`}
+                        shouldRedirect={typeof user.income === "undefined"}
+                    >
+                        <BudgetBreakdown income={user.income} />
+                    </ProtectedRoute>
+                    <Route path={`${url}/income`}>
+                        <IncomeForm />
+                    </Route>
+                    <Redirect to={{ pathname: `${url}/breakdown` }} />
+                </>
             )}
-        </>
+        </Switch>
     );
 };
 

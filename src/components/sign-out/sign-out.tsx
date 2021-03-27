@@ -13,16 +13,11 @@ const SignOut = () => {
     const signOut = () => {
         auth.signOut();
     };
-
-    if (auth.currentUser) {
-        return (
-            <Button icon={faSignOutAlt} onClick={signOut}>
-                Sign Out
-            </Button>
-        );
-    } else {
-        return null;
-    }
+    return (
+        <Button icon={faSignOutAlt} onClick={signOut}>
+            Sign Out
+        </Button>
+    );
 };
 
 export default SignOut;

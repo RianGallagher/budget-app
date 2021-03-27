@@ -1,28 +1,18 @@
-import React, { useContext } from "react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import IncomeContext from "state/income/income-context/income-context";
-import FirebaseService from "utilities/firebase-service";
+import React from "react";
 import BudgetComponent from "components/budget-component";
 import MonetaryNumber from "components/monetary-number";
 import SpinnerUntil from "components/spinner-until";
+import useComponents from "hooks/use-components";
 
 import AddComponent from "./add-component";
-import { IComponentWithId } from "./budget-breakdown.types";
+import { IComponentWithId, IProps } from "./budget-breakdown.types";
 import "./budget-breakdown.scss";
 
 /**
  * A breakdown of the user's budget.
  */
-const BudgetBreakdown = () => {
-    const { firestore, auth } = FirebaseService;
-    const { income } = useContext(IncomeContext);
-    const { uid } = auth.currentUser!;
-    const componentsRef = firestore.collection(`users/${uid}/components`);
-
-    const [components, loading] = useCollectionData<IComponentWithId>(componentsRef, {
-        idField: "componentId",
-    });
-
+const BudgetBreakdown = ({ income }: IProps) => {
+    const [components, loading] = useComponents();
     return (
         <div className="budget-breakdown">
             <div className="income">
@@ -34,7 +24,7 @@ const BudgetBreakdown = () => {
                     <div className="budget-components__container">
                         <div className="budget-components">
                             {components.map((component) => (
-                                <BudgetComponent {...component} key={component.componentId} />
+                                <BudgetComponent {...component} income={income} key={component.componentId} />
                             ))}
                         </div>
                         <AddComponent />
