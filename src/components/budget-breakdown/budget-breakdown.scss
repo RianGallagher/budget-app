@@ -1,11 +1,4 @@
 .budget-breakdown {
-    .income {
-        display: flex;
-        align-items: center;
-        .monetary-number::before {
-            content: "\00a0-\00a0";
-        }
-    }
     .budget-components {
         &__container {
             display: grid;

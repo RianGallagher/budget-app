@@ -1,11 +1,10 @@
 import React from "react";
 import BudgetComponent from "components/budget-component";
-import MonetaryNumber from "components/monetary-number";
 import SpinnerUntil from "components/spinner-until";
 import useComponents from "hooks/use-components";
-
 import AddComponent from "./add-component";
 import { IComponentWithId, IProps } from "./budget-breakdown.types";
+import Income from "./income";
 import "./budget-breakdown.scss";
 
 /**
@@ -15,10 +14,7 @@ const BudgetBreakdown = ({ income }: IProps) => {
     const [components, loading] = useComponents();
     return (
         <div className="budget-breakdown">
-            <div className="income">
-                <h2>Income</h2>
-                <MonetaryNumber value={income} />
-            </div>
+            <Income income={income} />
             <SpinnerUntil<IComponentWithId[]> data={components} isReady={!loading && typeof components !== "undefined"}>
                 {(components) => (
                     <div className="budget-components__container">

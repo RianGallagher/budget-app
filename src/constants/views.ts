@@ -1,6 +1,6 @@
 export enum Views {
-    Breakdown = "/breakdown",
+    Breakdown = "/budget/breakdown",
     Budget = "/budget",
-    Income = "/income",
+    Income = "/budget/income",
     Login = "/login",
 }
