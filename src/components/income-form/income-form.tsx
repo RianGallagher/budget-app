@@ -1,9 +1,12 @@
+import { Views } from "constants/views";
+
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import FirebaseService from "utilities/firebase-service";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import Button from "components/button";
 import { Variant } from "components/button/button.types";
+import { useHistory } from "react-router-dom";
 
 import { IFormValues } from "./income-form.types";
 import "./income-form.scss";
@@ -15,15 +18,17 @@ const IncomeForm = () => {
     const { firestore, auth } = FirebaseService;
     const { uid } = auth.currentUser!;
     const userRef = firestore.doc(`users/${uid}`);
+    const history = useHistory();
 
     /**
      * Update the users income in the database.
      * @param formValues.income The income that the user has submitted.
      */
-    const onSubmit = ({ income }: IFormValues) => {
-        userRef.update({
+    const onSubmit = async ({ income }: IFormValues) => {
+        await userRef.update({
             income: parseInt(income),
         });
+        history.push(Views.Breakdown);
     };
 
     return (
