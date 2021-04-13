@@ -1,16 +1,10 @@
-import { Views } from "constants/views";
-
 import React from "react";
 import BudgetComponent from "components/budget-component";
-import MonetaryNumber from "components/monetary-number";
 import SpinnerUntil from "components/spinner-until";
 import useComponents from "hooks/use-components";
-import Button from "components/button";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useHistory } from "react-router-dom";
-
 import AddComponent from "./add-component";
 import { IComponentWithId, IProps } from "./budget-breakdown.types";
+import Income from "./income";
 import "./budget-breakdown.scss";
 
 /**
@@ -18,16 +12,9 @@ import "./budget-breakdown.scss";
  */
 const BudgetBreakdown = ({ income }: IProps) => {
     const [components, loading] = useComponents();
-    const history = useHistory();
     return (
         <div className="budget-breakdown">
-            <div className="income">
-                <h2>Income</h2>
-                <MonetaryNumber value={income} />
-                <Button icon={faEdit} onClick={() => history.push(Views.Income)}>
-                    Edit
-                </Button>
-            </div>
+            <Income income={income} />
             <SpinnerUntil<IComponentWithId[]> data={components} isReady={!loading && typeof components !== "undefined"}>
                 {(components) => (
                     <div className="budget-components__container">
