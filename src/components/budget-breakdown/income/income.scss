@@ -1,7 +1,20 @@
 .income {
     display: flex;
-    align-items: center;
-    .button {
-        margin-left: 5px;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 10px;
+
+    &__display {
+        display: flex;
+        align-items: center;
+        .button {
+            margin-left: 5px;
+        }
+    }
+
+    &__views {
+        .button {
+            margin-right: 5px;
+        }
     }
 }
