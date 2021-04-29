@@ -14,10 +14,10 @@ const Expense = ({ componentValue, expense }: IProps) => (
     <div className="expense" key={expense.expenseId}>
         <div>{expense.name}</div>
         <>&nbsp;-&nbsp;</>
-        <MonetaryNumber value={componentValue * (expense.percentage / 100)} />
+        <MonetaryNumber value={expense.value} />
         <>&nbsp;</>
         <div>
-            ( <span className="expense__percentage">{`${expense.percentage}%`}</span>)
+            ( <span className="expense__percentage">{`${Math.floor((expense.value / componentValue) * 100)}%`}</span>)
         </div>
     </div>
 );

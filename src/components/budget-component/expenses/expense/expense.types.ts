@@ -1,7 +1,7 @@
 export interface IExpense {
     readonly expenseId: number;
     readonly name: string;
-    readonly percentage: number;
+    readonly value: number;
 }
 
 export interface IProps {
