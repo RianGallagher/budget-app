@@ -4,6 +4,7 @@ import MonetaryNumber from "components/monetary-number";
 import DeleteComponentButton from "./delete-component-button";
 import UpdateComponentButton from "./update-component-button";
 import { IProps } from "./budget-component.types";
+import Expenses from "./expenses";
 import "./budget-component.scss";
 
 /**
@@ -13,15 +14,22 @@ import "./budget-component.scss";
  * @param props.percentage  The percentage of income that this component is allocated.
  * @param props.title       The title of the component.
  */
-const BudgetComponent = ({ componentId, income, percentage, title }: IProps) => (
-    <div className="budget-component">
-        <div className="budget-component__title">{`${title} - ${percentage}%`}</div>
-        <MonetaryNumber value={income * (percentage / 100)} />
-        <div className="budget-component__buttons">
-            <DeleteComponentButton componentId={componentId} />
-            <UpdateComponentButton componentId={componentId} percentage={percentage} title={title} />
+const BudgetComponent = ({ componentId, income, percentage, title }: IProps) => {
+    const componentValue = income * (percentage / 100);
+    return (
+        <div className="budget-component">
+            <div className="budget-component__title">{`${title} - ${percentage}%`}</div>
+
+            <MonetaryNumber value={componentValue} />
+
+            <Expenses componentId={componentId} componentValue={componentValue} />
+
+            <div className="budget-component__buttons">
+                <DeleteComponentButton componentId={componentId} />
+                <UpdateComponentButton componentId={componentId} percentage={percentage} title={title} />
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default BudgetComponent;
