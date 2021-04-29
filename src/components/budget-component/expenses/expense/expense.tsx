@@ -12,13 +12,9 @@ import "./expense.scss";
  */
 const Expense = ({ componentValue, expense }: IProps) => (
     <div className="expense" key={expense.expenseId}>
-        <div>{expense.name}</div>
-        <>&nbsp;-&nbsp;</>
+        <div className="expense__name">{expense.name}</div>
         <MonetaryNumber value={expense.value} />
-        <>&nbsp;</>
-        <div>
-            ( <span className="expense__percentage">{`${Math.floor((expense.value / componentValue) * 100)}%`}</span>)
-        </div>
+        <div className="expense__percentage">{`${Math.floor((expense.value / componentValue) * 100)}%`}</div>
     </div>
 );
 
