@@ -5,6 +5,7 @@ import DeleteComponentButton from "./delete-component-button";
 import UpdateComponentButton from "./update-component-button";
 import { IProps } from "./budget-component.types";
 import Expenses from "./expenses";
+import { useComponent } from "./budget-component.utilities";
 import "./budget-component.scss";
 
 /**
@@ -16,6 +17,8 @@ import "./budget-component.scss";
  */
 const BudgetComponent = ({ componentId, income, percentage, title }: IProps) => {
     const componentValue = income * (percentage / 100);
+    const { deleteComponent, updateComponent } = useComponent(componentId);
+
     return (
         <div className="budget-component">
             <div className="budget-component__title">{`${title} - ${percentage}%`}</div>
@@ -25,8 +28,8 @@ const BudgetComponent = ({ componentId, income, percentage, title }: IProps) => 
             <Expenses componentId={componentId} componentValue={componentValue} />
 
             <div className="budget-component__buttons">
-                <DeleteComponentButton componentId={componentId} />
-                <UpdateComponentButton componentId={componentId} percentage={percentage} title={title} />
+                <DeleteComponentButton deleteComponent={deleteComponent} />
+                <UpdateComponentButton updateComponent={updateComponent} percentage={percentage} title={title} />
             </div>
         </div>
     );
