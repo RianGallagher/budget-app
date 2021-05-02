@@ -21,7 +21,8 @@
     "plugins": ["react", "@typescript-eslint", "import"],
     "rules": {
         "no-debugger": "warn",
-        "@typescript-eslint/no-unused-vars": "error"
+        "@typescript-eslint/no-unused-vars": "warn",
+        "no-unused-vars": "warn"
     },
     "ignorePatterns": ["dist/*", "node_modules"]
 }
