@@ -1,8 +1,8 @@
 import React from "react";
 
 import { IProps } from "./expenses.types";
+import { IExpenseWithId } from "./expense/expense.types";
 import SpinnerUntil from "components/spinner-until";
-import { IExpense } from "./expense/expense.types";
 import useExpenses from "hooks/use-expenses";
 import Expense from "./expense";
 import "./expenses.scss";
@@ -13,13 +13,19 @@ import "./expenses.scss";
  * @param props.componentValue The value associated with the component.
  */
 const Expenses = ({ componentId, componentValue }: IProps) => {
-    const [expenses, loading] = useExpenses(componentId);
+    const { expensesQuery, expensesRef } = useExpenses(componentId);
+    const [expenses, loading] = expensesQuery;
     return (
-        <SpinnerUntil<IExpense[]> data={expenses} isReady={!loading && typeof expenses !== "undefined"}>
+        <SpinnerUntil<IExpenseWithId[]> data={expenses} isReady={!loading && typeof expenses !== "undefined"}>
             {(expenses) => (
                 <>
                     {expenses.map((expense) => (
-                        <Expense key={expense.expenseId} componentValue={componentValue} expense={expense} />
+                        <Expense
+                            key={expense.expenseId}
+                            componentValue={componentValue}
+                            expense={expense}
+                            expensesRef={expensesRef}
+                        />
                     ))}
                 </>
             )}

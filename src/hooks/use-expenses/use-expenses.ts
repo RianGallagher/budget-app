@@ -1,4 +1,4 @@
-import { IExpense } from "components/budget-component/expenses/expense/expense.types";
+import { IExpenseWithId } from "components/budget-component/expenses/expense/expense.types";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import FirebaseService from "utilities/firebase-service";
 
@@ -11,9 +11,14 @@ const useExpenses = (componentId: string) => {
     const user = auth.currentUser;
     const expensesRef = firestore.collection(`users/${user?.uid}/components/${componentId}/expenses`);
 
-    return useCollectionData<IExpense>(expensesRef, {
+    const expensesQuery = useCollectionData<IExpenseWithId>(expensesRef, {
         idField: "expenseId",
     });
+
+    return {
+        expensesRef,
+        expensesQuery,
+    };
 };
 
 export default useExpenses;
