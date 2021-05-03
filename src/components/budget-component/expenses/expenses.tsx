@@ -5,6 +5,7 @@ import { IExpenseWithId } from "./expense/expense.types";
 import SpinnerUntil from "components/spinner-until";
 import useExpenses from "hooks/use-expenses";
 import Expense from "./expense";
+import AddExpense from "./add-expense";
 import "./expenses.scss";
 
 /**
@@ -27,6 +28,7 @@ const Expenses = ({ componentId, componentValue }: IProps) => {
                             expensesRef={expensesRef}
                         />
                     ))}
+                    <AddExpense expensesRef={expensesRef} />
                 </>
             )}
         </SpinnerUntil>
