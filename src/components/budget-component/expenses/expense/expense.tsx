@@ -7,6 +7,7 @@ import "./expense.scss";
 import Button from "components/button";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import UpdateExpenseButton from "./update-expense-button";
+import capitalize from "lodash/capitalize";
 
 /**
  * Render information for an expense.
@@ -19,7 +20,7 @@ const Expense = ({ componentValue, expense, expensesRef }: IProps) => {
 
     return (
         <div className="expense" key={expense.expenseId}>
-            <div className="expense__name">{expense.name}</div>
+            <div className="expense__name">{capitalize(expense.name)}</div>
             <MonetaryNumber value={expense.value} />
             <div className="expense__percentage">{`${Math.floor((expense.value / componentValue) * 100)}%`}</div>
             <div>
