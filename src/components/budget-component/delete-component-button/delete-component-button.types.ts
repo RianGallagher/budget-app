@@ -1,3 +1,3 @@
 export interface IProps {
-    readonly componentId: string;
+    readonly deleteComponent: () => Promise<void>;
 }

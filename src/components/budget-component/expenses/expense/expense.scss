@@ -1,0 +1,24 @@
+.expense {
+    display: flex;
+    align-items: center;
+
+    &__name {
+        white-space: pre;
+        &::after {
+            content: " - ";
+        }
+    }
+
+    &__percentage {
+        white-space: pre;
+        font-weight: bold;
+        &::before {
+            font-weight: normal;
+            content: " (";
+        }
+        &::after {
+            font-weight: normal;
+            content: ")";
+        }
+    }
+}
