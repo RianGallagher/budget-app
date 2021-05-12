@@ -3,16 +3,29 @@
     border: 1px solid;
     border-radius: 5px;
     min-width: 300px;
+    position: relative;
 
-    &__title {
-        font-weight: bold;
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &__title {
+            display: grid;
+            row-gap: 5px;
+            &__name {
+                font-weight: bold;
+            }
+        }
     }
 
-    .monetary-number {
-        margin: 10px 0;
+    &__value {
+        // margin: 10px 0;
     }
 
     &__buttons {
+        // position: absolute;
+        // top: 5px;
+        // right: 5px;
         display: flex;
         .button {
             margin: 0 3px;

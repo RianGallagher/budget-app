@@ -15,17 +15,16 @@ import capitalize from "lodash/capitalize";
  * @param props.expense        The expense being rendered.
  * @returns
  */
-const Expense = ({ componentValue, expense, expensesRef }: IProps) => {
+const Expense = ({ expense, expensesRef }: IProps) => {
     const { deleteExpense, updateExpense } = useExpense(expense.expenseId, expensesRef);
 
     return (
         <div className="expense" key={expense.expenseId}>
             <div className="expense__name">{capitalize(expense.name)}</div>
             <MonetaryNumber value={expense.value} />
-            <div className="expense__percentage">{`${Math.floor((expense.value / componentValue) * 100)}%`}</div>
-            <div>
+            <div className="expense__buttons">
                 <UpdateExpenseButton expense={expense} updateExpense={updateExpense} />
-                <Button icon={faTrash} onClick={deleteExpense} />
+                <Button icon={faTrash} onClick={deleteExpense} isIconOnly />
             </div>
         </div>
     );

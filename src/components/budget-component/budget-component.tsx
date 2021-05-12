@@ -21,16 +21,18 @@ const BudgetComponent = ({ componentId, income, percentage, title }: IProps) => 
 
     return (
         <div className="budget-component">
-            <div className="budget-component__title">{`${title} - ${percentage}%`}</div>
-
-            <MonetaryNumber value={componentValue} />
+            <div className="budget-component__header">
+                <div className="budget-component__header__title">
+                    <div className="budget-component__header__title__name">{`${title} - ${percentage}%`}</div>
+                    <MonetaryNumber value={componentValue} />
+                </div>
+                <div className="budget-component__buttons">
+                    <UpdateComponentButton updateComponent={updateComponent} percentage={percentage} title={title} />
+                    <DeleteComponentButton deleteComponent={deleteComponent} />
+                </div>
+            </div>
 
             <Expenses componentId={componentId} componentValue={componentValue} />
-
-            <div className="budget-component__buttons">
-                <DeleteComponentButton deleteComponent={deleteComponent} />
-                <UpdateComponentButton updateComponent={updateComponent} percentage={percentage} title={title} />
-            </div>
         </div>
     );
 };

@@ -29,7 +29,7 @@ const UpdateExpenseButton = ({ expense, updateExpense }: IProps) => {
                     <Modal>
                         <ExpenseForm initialValues={expense} onSubmit={onSubmit(hideModal)} />
                     </Modal>
-                    <Button icon={faEdit} onClick={showModal} />
+                    <Button icon={faEdit} onClick={showModal} isIconOnly />
                 </>
             )}
         </ModalContainer>

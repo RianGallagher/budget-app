@@ -20,14 +20,13 @@ const Expenses = ({ componentId, componentValue }: IProps) => {
         <SpinnerUntil<IExpenseWithId[]> data={expenses} isReady={!loading && typeof expenses !== "undefined"}>
             {(expenses) => (
                 <>
-                    {expenses.map((expense) => (
-                        <Expense
-                            key={expense.expenseId}
-                            componentValue={componentValue}
-                            expense={expense}
-                            expensesRef={expensesRef}
-                        />
-                    ))}
+                    <ul className="expenses-list">
+                        {expenses.map((expense) => (
+                            <li key={expense.expenseId}>
+                                <Expense componentValue={componentValue} expense={expense} expensesRef={expensesRef} />
+                            </li>
+                        ))}
+                    </ul>
                     <AddExpense expensesRef={expensesRef} />
                 </>
             )}
